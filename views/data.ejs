@@ -9,17 +9,30 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 	</script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="./css/style.css">
 
 <script src="https://docbhatti.tech/external_api.js"></script>
-
+<script>
+function getInputValue(){
+$(document).ready(function(){
+    var domain = "docbhatti.tech";
+                var inputVal = document.getElementById("myInput").value;
+	var options = {
+		roomName: inputVal,
+		width: 350,
+		height: 350,
+		parentNode: document.querySelector('#meet')
+	}
+var api = new JitsiMeetExternalAPI(domain, options);
+});
+}
+</script>
 </head>
 
 <body>
-	<div class="col-md-4 col-md-offset-4 form-card">
-		<div>
-			<p>Meeting</p>
-		</div>
+  
+	<section class="sign-in">
+      <div class="container">
 		<div>
 			<center>
 				<table class="table table-hover text-center">
@@ -34,32 +47,32 @@
 				</table>
 			</center>
 		</div>
-		<div class="abc" id="LangTable">
-			<a href="/logout">Logout</a>
-		</div>
+		
 	</div>
 	<input type="text" placeholder="Enter you academic year." id="myInput">
-    <button type="button" onclick="getInputValue();">Academic Year</button>
-    
-	<div id="meet">
-	Class
+    <button type="button" onclick="getInputValue(); myFunction();">Academic Year</button>
+    <div id="loader" style="display:none"></div>
+<div style="display:block;" id="myDiv" class="animate-bottom">
+<div id="meet">
 </div>
+</div>
+</section>
+<div class="abc" id="LangTable">
+			<a href="/logout">Logout</a>
+		</div>
+
 <script>
-function getInputValue(){
-$(document).ready(function(){
-    var domain = "docbhatti.tech";
-                var inputVal = document.getElementById("myInput").value;
-	var options = {
-		roomName: inputVal,
-		width: calc(100% - 20px),
-		height: calc(100% - 20px),
-		parentNode: document.querySelector('#meet')
-	}
-var api = new JitsiMeetExternalAPI(domain, options);
-});
+var myVar;
+
+function myFunction() {
+  myVar = setTimeout(showPage, 3000);
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "block";
+  
 }
 </script>
-
 </body>
 
 </html>
