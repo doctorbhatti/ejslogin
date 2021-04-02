@@ -12,7 +12,7 @@ router.post('/', (req, res, next) => {
 	let personInfo = req.body;
 
 
-	if (!personInfo.email || !personInfo.username || !personInfo.password || !personInfo.passwordConf) {
+	if (!personInfo.email || !personInfo.username || !personInfo.academicYear || !personInfo.password || !personInfo.passwordConf) {
 		res.send();
 	} else {
 		if (personInfo.password == personInfo.passwordConf) {
@@ -33,6 +33,7 @@ router.post('/', (req, res, next) => {
 							unique_id: c,
 							email: personInfo.email,
 							username: personInfo.username,
+							academicYear: personInfo.academicYear,
 							password: personInfo.password,
 							passwordConf: personInfo.passwordConf
 						});
@@ -90,7 +91,7 @@ router.get('/profile', (req, res, next) => {
 			res.redirect('/');
 		} else {
 			//console.log("found");
-			return res.render('data.ejs', { "name": data.username, "email": data.email });
+			return res.render('data.ejs', { "name": data.username, "email": data.email, "academicYear": data.academicYear });
 		}
 	});
 });
