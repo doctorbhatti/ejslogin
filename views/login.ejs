@@ -1,68 +1,109 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Login Register App</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-	</script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="./css/main.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PHP Learning</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(() => {
+        $("#form").submit((event) => {
+          event.preventDefault();
 
-	<script type="text/javascript">
-		$(document).ready( () => {
+          $.ajax({
+            type: "POST",
+            url: "/login",
+            data: $("#form").serialize(),
+            dataType: "json",
+            success: (response) => {
+              //alert("a");
+              //console.log(response.Success);
+              $("#form")[0].reset();
 
-			$( "#form" ).submit( (event) => {
-				event.preventDefault();
+              document.getElementById("check").innerHTML = response.Success;
+              //ADD THIS CODE
+              setTimeout(() => {
+                document.getElementById("check").innerHTML = "";
+              }, 3000);
+              if (response.Success == "Success!") {
+                document.getElementById("aa").click();
+              }
+            },
+            error: () => {},
+          });
+        });
+      });
+    </script>
+    <link
+      rel="stylesheet prefetch"
+      href="https://fonts.googleapis.com/css?family=Open+Sans:600"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link
+      rel="stylesheet"
+      href="fonts/material-icon/css/material-design-iconic-font.min.css"
+    />
 
-				$.ajax({
-					type: 'POST',
-					url: '/login',
-					data: $('#form').serialize(),
-					dataType: "json",
-					success: (response) => {
-						//alert("a");
-						//console.log(response.Success);
-						$('#form')[0].reset();
-
-						document.getElementById("check").innerHTML=response.Success;
-         					//ADD THIS CODE
-         					setTimeout( () => {
-         						document.getElementById("check").innerHTML="";
-         					},3000);
-         					if (response.Success=="Success!") {
-         						document.getElementById("aa").click();
-         					};
-         				},
-         				error: () => {
-         				}
-         			})
-			});
-
-		});
-	</script>
-</head>
-<body>
-	<div class="col-md-4 col-md-offset-4 form-card">
-		<div>
-			<p>Login</p>
-		</div>
-		<div class="form-group ">
-			<form id="form" method="post" >
-				<input type="text" name="email" placeholder="E-mail" required="" class="form-control"><br/>
-				<input type="password" name="password" placeholder="Password" required="" class="form-control"><br/>
-				<input type="submit" value="Login" class="btn btn-success">
-			</form>
-		</div>
-		<div class="mssg bg-danger">
-			<span id="check" ></span>
-		</div>
-		<div id="LangTable"><a href="/profile" id="aa"></a>
-		</div>
-		<div><span>Do you forgot password? </span><a href="/forgetpass">click here</a>
-		</div>
-		<div id="LangTable"><span>Do you want to register a new Account? </span><a href="/">click here</a>
-		</div>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <section class="sign-in">
+      <div class="container">
+        <div class="signin-content">
+          <div class="signin-image">
+            <figure>
+              <img src="./images/signin-image.jpg" alt="sing up image" />
+            </figure>
+            <a href="#" class="signup-image-link"></a>
+          </div>
+          <div class="signin-form">
+            <h2 class="form-title">Sign In</h2>
+            <form method="post" class="register-form" id="form">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="E-mail"
+                  required=""
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  required=""
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="checkbox"
+                  name="remember-me"
+                  id="remember-me"
+                  class="agree-term"
+                />
+                <label for="remember-me" class="label-agree-term"
+                  ><span><span></span></span>Remember me</label
+                >
+              </div>
+              <div class="form-group form-button">
+                <input type="submit" value="Login" class="btn btn-success" />
+              </div>
+            </form>
+            <div class="mssg bg-danger">
+              <span id="check"></span>
+            </div>
+            <div id="LangTable"><a href="/profile" id="aa"></a></div>
+          </div>
+        </div>
+      </div>
 	</div>
-</body>
+    </section>
+  </body>
 </html>
