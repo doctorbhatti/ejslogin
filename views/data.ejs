@@ -1,78 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%;">
+  <head>
+    <title>Login Register App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-	<title>Login Register App</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-	</script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="./css/style.css">
+    <script src="https://docbhatti.tech/external_api.js"></script>
+    <script>
+      function getInputValue() {
+        $(document).ready(function () {
+          var domain = "docbhatti.tech";
+          var inputVal = document.getElementById("myInput").value;
+          var options = {
+            roomName: inputVal,
+            width: 350,
+            height: 350,
+            parentNode: document.querySelector("#meet"),
+          };
+          var api = new JitsiMeetExternalAPI(domain, options);
+        });
+      }
+    </script>
+  </head>
 
-<script src="https://docbhatti.tech/external_api.js"></script>
-<script>
-function getInputValue(){
-$(document).ready(function(){
-    var domain = "docbhatti.tech";
-                var inputVal = document.getElementById("myInput").value;
-	var options = {
-		roomName: inputVal,
-		width: 350,
-		height: 350,
-		parentNode: document.querySelector('#meet')
-	}
-var api = new JitsiMeetExternalAPI(domain, options);
-});
-}
-</script>
-</head>
-
-<body>
-  
-	<section class="sign-in">
+  <body>
+    <section class="sign-in" id="tohide">
       <div class="container">
-		<div>
-			<center>
-				<table class="table table-hover text-center">
-					<tr>
-						<td>Name </td>
-						<td><%= name %></td>
-					</tr>
-					<tr>
-						<td>Email </td>
-						<td><%= email %></td>
-					</tr>
-				</table>
-			</center>
-		</div>
-		
-	</div>
-	<input type="text" placeholder="Enter you academic year." id="myInput">
-    <button type="button" onclick="getInputValue(); myFunction();">Academic Year</button>
-    <div id="loader" style="display:none"></div>
-<div style="display:block;" id="myDiv" class="animate-bottom">
-<div id="meet">
-</div>
-</div>
-</section>
-<div class="abc" id="LangTable">
-			<a href="/logout">Logout</a>
-		</div>
+        <div>
+          <center>
+            <table class="table table-hover text-center">
+              <tr>
+                <td>Name</td>
+                <td><%= name %></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><%= email %></td>
+              </tr>
+            </table>
+          </center>
+        </div>
+      </div>
+      <input type="text" placeholder="Enter you academic year." id="myInput" required/>
+      <button type="button" onclick="getInputValue();">
+        Academic Year
+      </button>
+    </section>
 
-<script>
-var myVar;
+    <div class="abc" id="LangTable">
+      <a href="/logout">Logout</a>
+    </div>
+	<div id="meet" style="height: auto !important;"></div>
 
-function myFunction() {
-  myVar = setTimeout(showPage, 3000);
-}
+    <script>
+      
+	  function getInputValue() {
+		var myDe = document.getElementById("myInput").value;
 
-function showPage() {
-  document.getElementById("loader").style.display = "block";
+		  if(myDe == ""){
+			alert("Please enter your academic year!");
+
+		  }else{
+			  loadJitsi();
+        }
+      }
+	  function loadJitsi(){
+		$(document).ready(function () {
+
+var domain = "docbhatti.tech";
+var inputVal = document.getElementById("myInput").value;
+var options = {
+  roomName: inputVal,
+  width: '100%',
+  height: 600,
+  parentNode: document.querySelector("#meet"),
+  userInfo: {
+        email: '<%= email %>',
+        displayName: '<%= name %>'
+    }
+};
+var api = new JitsiMeetExternalAPI(domain, options);
+var toHide = document.getElementById("tohide");
+toHide.style.display = "none";
+	  });
+	}
+	
   
-}
-</script>
-</body>
-
+    </script>
+  </body>
 </html>
